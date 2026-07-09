@@ -1,23 +1,20 @@
 class Solution {
     public int findLucky(int[] arr) {
-        HashMap<Integer,Integer> h = new HashMap<>();
-        for(int i=0;i<arr.length;i++){
-            int ele = arr[i];
-            if(h.containsKey(ele)==true){
-                h.put(ele,h.get(ele)+1);
-            }
-            else{
-                h.put(ele,1);
-            }
+        int maxVal = 0;
+        for(int num:arr){
+            maxVal = Math.max(maxVal,num);
+        }
+        int [] count = new int[maxVal+1];
+
+        for(int num:arr){
+            count[num]++;
         }
 
-        int ans = -1;
-
-        for(int key: h.keySet()){
-            if(h.get(key)==key){
-                ans = Math.max(ans,key);
+        for(int i = maxVal;i>0;i--){
+            if(count[i]==i){
+                return i;
             }
         }
-        return ans;
+        return -1;
     }
 }
